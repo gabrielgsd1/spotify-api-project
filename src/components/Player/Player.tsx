@@ -45,27 +45,30 @@ function Player ({preview_url}: PlayerProps) {
     if(currentTimeElement.current && timestampElement.current)
       currentTimeElement.current.style.width = `${timestampElement.current?.clientWidth * currentTime / duration}px`
   }
-  
-  function isAudioNull() {
-    if(preview_url) return 
-    return {
-      div: <div className='absolute top-[-120%] peer-hover:opacity-[1] duration-300 opacity-[0] bg-gray-800 text-gray-400 px-2 rounded-lg'>A música não possui um preview disponível</div>,
-      className: "brightness-[0.4] pointer-events-none"
-    } 
-  }
 
-  const audioNull = isAudioNull()
+  function audioNullClasses(){
+    return audio.current?.src ? "" : "brightness-[0.4] pointer-events-none"
+  }
 
   return ( 
     <div className="player my-2 relative flex items-center justify-center w-full">
       <audio ref={audio} src={preview_url as string} onLoadedData={(e) => setDuration(Math.ceil(e.currentTarget.duration))} onTimeUpdate={handleTimeChange} onEnded={endAudio}/>
-      {isPlaying ? <AiFillPauseCircle  onClick={handlePlayPause} size={40}/>
-        : <AiFillPlayCircle onClick={handlePlayPause} className={audioNull?.className} size={40}/>
+      {isPlaying ? <AiFillPauseCircle onClick={handlePlayPause} size={40}/>
+        : <AiFillPlayCircle className={audioNullClasses()} onClick={handlePlayPause} size={40}/>
       }
-      <div ref={timestampElement} className="timestamp relative bg-white w-32 h-2 rounded ml-1">
-        <div ref={currentTimeElement} className="currentTime rounded left-0 absolute h-full bg-green-600"></div>
-      </div>
-      <div className="duration ml-2">{currentTime}/{duration}</div>
+      {audio.current?.src ? 
+        (
+          <div className="audio-data flex items-center">
+            <div ref={timestampElement} className="timestamp relative bg-white w-32 h-2 rounded ml-1">
+              <div ref={currentTimeElement} className="currentTime rounded left-0 absolute h-full bg-green-600"></div>
+            </div>
+            <div className="duration ml-2">0:{currentTime < 10 ? "0" + currentTime : currentTime}/0:{duration}</div>
+          </div>
+        ) : 
+        (
+          <div className='text-sm font-thin ml-1'>Preview não disponível.</div>
+        ) 
+      }
   </div>
   ) 
 } 
