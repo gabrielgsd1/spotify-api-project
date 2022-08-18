@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import { getSingleTrack, getTrackRecommendations } from '../../features/resultsSlice'
 import { Artist, Track } from '../../types/apiTypes'
 import ArtistList from '../ArtistList/ArtistList'
-import ItemSection from '../ItemSection/ItemSection'
 import LinkToPage from '../LinkToPage/LinkToPage'
 import Player from '../Player/Player'
 import SmallTrack from '../SmallTrack/SmallTrack'
@@ -50,8 +49,8 @@ function SingleTrackPage () {
       <div className="recommendations my-10">
         <Title className='w-[80%] md:w-[90%] m-auto'>Músicas recomendadas baseada nesta:</Title>
         <SmallTracks>
-          {recommendations.map(track => {
-            return <SmallTrack track={track}/>
+          {recommendations.map((track, i) => {
+            return <SmallTrack i={i} track={track}/>
           })}
         </SmallTracks>
       </div>

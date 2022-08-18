@@ -1,16 +1,20 @@
+import { motion } from 'framer-motion'
 import React from 'react' 
 import { Track } from '../../types/apiTypes'
 import LinkToPage from '../LinkToPage/LinkToPage'
-import Player from '../Player/Player'
+import ShowUpAnimation from '../ShowUpAnimation/ShowUpAnimation'
 import TrackDuration from '../TrackDuration/TrackDuration'
-
 interface SmallTrackProps {
   track: Track
+  i?: number
 }
  
-function SmallTrack({track}: SmallTrackProps) { 
+function SmallTrack({track, i}: SmallTrackProps) { 
   return ( 
-    <div className='small-player rounded-md my-2 py-2 px-3 bg-black flex-1 flex justify-between items-center'>
+    <ShowUpAnimation
+      className='small-player rounded-md my-2 py-2 px-3 bg-black flex-1 flex justify-between items-center'
+      i={i}
+    >
       <div className="content flex gap-4">
         <img className="w-[50px] h-[50px] self-center" src={track.album.images[0].url}/>
         <div className="texts">
@@ -21,7 +25,7 @@ function SmallTrack({track}: SmallTrackProps) {
       <div className="duration mr-2">
         <TrackDuration className='text-white' duration={track.duration_ms}/>
       </div>
-    </div> 
+    </ShowUpAnimation>
   )   
 } 
  

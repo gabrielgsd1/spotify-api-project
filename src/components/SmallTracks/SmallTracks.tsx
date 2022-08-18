@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { Track } from '../../types/apiTypes';
  
 interface SmallTrackWithPlayerContainerProps {
-  children: JSX.Element[]
+  children: JSX.Element[] | JSX.Element
 }
 
 
-function SmallTrack ({children}:SmallTrackWithPlayerContainerProps) { 
+function SmallTracks ({children}:SmallTrackWithPlayerContainerProps) { 
   
   const [recommendations, setRecommendations] = useState<Track[]>([])
 
@@ -17,11 +17,11 @@ function SmallTrack ({children}:SmallTrackWithPlayerContainerProps) {
   })
   
   return ( 
-    <div className='grid grid-cols-1 md:grid-cols-2 gap-4 w-[80%] md:w-[90%] m-auto'>
+    <div className='grid grid-cols-1 md:grid-cols-2 gap-4 m-auto'>
       {children}
     </div> 
   ) 
 } 
  
-export default SmallTrack 
+export default SmallTracks
  

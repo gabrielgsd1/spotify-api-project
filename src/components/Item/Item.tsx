@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 
 interface ItemProps {
   children: JSX.Element[] | JSX.Element,
-  index: number
+  index?: number
 }
 
 function Item ({children, index}: ItemProps) { 
@@ -17,7 +17,7 @@ function Item ({children, index}: ItemProps) {
         //verifica se o elemento está acima ou abaixo do viewport, e, baseado nisso, a animação é pra cima ou para baixo
         (entry.target as HTMLStyleElement).style.transform = `translateY(${pixels * Math.sign(entry.boundingClientRect.y)}px)`;
         (entry.target as HTMLStyleElement).style.opacity = `${entry.intersectionRatio}`;
-        (entry.target as HTMLStyleElement).style.transitionDelay = `${index*12}ms`;
+        (entry.target as HTMLStyleElement).style.transitionDelay = `${(index || 1)*8}ms`;
       })
     }, {
       threshold: [0.1, 0.3, 0.5, 0.7, 0.85, 1]
@@ -35,7 +35,7 @@ function Item ({children, index}: ItemProps) {
       ref={divRef}
       initial={{opacity: 0, y: 20}}
       animate={{opacity: 1, y: 0}}
-      transition={{delay: 0.15 * index}} 
+      transition={{delay: 0.08 * (index || 0)}} 
       className='api-item text-center container relative info box-border px-6 text-white flex flex-col items-center text-ellipsis bg-[#111] py-4 rounded-xl hover:bg-[#000] hover:cursor-pointer hover:shadow-lg hover:shadow-black duration-300'
     >
       {children}

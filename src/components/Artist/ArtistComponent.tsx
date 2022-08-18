@@ -1,5 +1,6 @@
 import React from 'react' 
 import { Artist, SpotifyComponentProps } from '../../types/apiTypes'
+import CheckImage from '../CheckImage/CheckImage'
 import ImageNotFound from '../ImageNotFound/ImageNotFound'
 
 interface ArtistProps extends SpotifyComponentProps{
@@ -15,7 +16,7 @@ function ArtistComponent ({artist}: ArtistProps) {
    return ( 
     <div className="artist">
       <div className="image center">
-        {checkImage(artist)}
+        <CheckImage className='w-[150px] h-[150px] m-auto rounded-[50%]' source={artist}/>
       </div>
       <div className="name my-4 text-center font-semibold text-lg">
         {artist.name}
