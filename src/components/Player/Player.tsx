@@ -32,7 +32,7 @@ function Player ({preview_url}: PlayerProps) {
     setIsPlaying(false)
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     audio.current?.load()
     if(audio.current) setDuration(Math.floor(audio.current?.duration))
     return () => {
@@ -53,8 +53,8 @@ function Player ({preview_url}: PlayerProps) {
   return ( 
     <div className="player my-2 relative flex items-center justify-center w-full">
       <audio ref={audio} src={preview_url as string} onLoadedData={(e) => setDuration(Math.ceil(e.currentTarget.duration))} onTimeUpdate={handleTimeChange} onEnded={endAudio}/>
-      {isPlaying ? <AiFillPauseCircle onClick={handlePlayPause} size={40}/>
-        : <AiFillPlayCircle className={audioNullClasses()} onClick={handlePlayPause} size={40}/>
+      {isPlaying ? <AiFillPauseCircle className='cursor-pointer' onClick={handlePlayPause} size={40}/>
+        : <AiFillPlayCircle className={audioNullClasses() + "cursor-pointer"} onClick={handlePlayPause} size={40}/>
       }
       {audio.current?.src ? 
         (

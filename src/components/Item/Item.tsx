@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 interface ItemProps {
   children: JSX.Element[] | JSX.Element,
@@ -10,16 +10,17 @@ function Item ({children, index}: ItemProps) {
 
   const divRef = useRef<HTMLDivElement| null>(null)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const pixels = Math.abs((1 - entry.intersectionRatio) * 35);
-        (entry.target as HTMLStyleElement).style.transform = `translateY(${pixels}px)`;
+        //verifica se o elemento está acima ou abaixo do viewport, e, baseado nisso, a animação é pra cima ou para baixo
+        (entry.target as HTMLStyleElement).style.transform = `translateY(${pixels * Math.sign(entry.boundingClientRect.y)}px)`;
         (entry.target as HTMLStyleElement).style.opacity = `${entry.intersectionRatio}`;
-        (entry.target as HTMLStyleElement).style.transitionDelay = `${index*4}ms`;
+        (entry.target as HTMLStyleElement).style.transitionDelay = `${index*12}ms`;
       })
     }, {
-      threshold: [0.1,0.3,0.5,0.7,0.85,1]
+      threshold: [0.1, 0.3, 0.5, 0.7, 0.85, 1]
     })
 
     if(divRef.current) observer.observe(divRef.current)
