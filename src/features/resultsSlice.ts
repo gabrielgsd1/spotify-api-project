@@ -1,7 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios, { AxiosResponse } from "axios";
 import * as qs from "qs";
-import { SpotifyAPIResponse, Track } from "../types/apiTypes";
+import {
+  Album,
+  Artist,
+  SpotifyAPIResponse,
+  SpotifyItems,
+  Track,
+} from "../types/apiTypes";
 
 interface Statuses {
   status: "loading" | "idle" | "success" | "failed";
@@ -63,10 +69,10 @@ export const searchInAPI = createAsyncThunk(
   }
 );
 
-export const getSingleTrack = async (id: string) => {
+export async function getSingleTrack(id: string) {
   const token = await requestToken();
   const { data }: AxiosResponse<Track> = await axios(
-    `https://api.spotify.com/v1/tracks/${id}`,
+    `https://api.spotify.com/v1/tracks/${id}?market=BR`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -75,7 +81,68 @@ export const getSingleTrack = async (id: string) => {
     }
   );
   return data;
-};
+}
+
+export async function getSingleArtist(id: string) {
+  const token = await requestToken();
+  const { data }: AxiosResponse<Artist> = await axios(
+    `https://api.spotify.com/v1/artists/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return data;
+}
+
+export async function getArtistTopSongs(id: string) {
+  const token = await requestToken();
+  const { data }: AxiosResponse<{ tracks: Track[] }> = await axios(
+    `https://api.spotify.com/v1/artists/${id}/top-tracks?market=BR&limit=6`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return data;
+}
+
+export async function getArtistAlbums(id: string) {
+  const token = await requestToken();
+  const { data }: AxiosResponse<SpotifyItems<Album>> = await axios(
+    `https://api.spotify.com/v1/artists/${id}/albums`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return data;
+}
+
+export async function getTrackRecommendations(
+  trackId: string,
+  artistId: string
+) {
+  try {
+    const token = await requestToken();
+    const { data }: AxiosResponse<Track[]> = await axios(
+      `https://api.spotify.com/v1/recommendations?seed_artists=${artistId}&seed_tracks=${trackId}&limit=8&seed_genres`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return data;
+  } catch (e) {}
+}
 
 export default resultsSlice;
 

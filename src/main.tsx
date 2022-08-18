@@ -6,6 +6,7 @@ import {Provider} from 'react-redux'
 import store from './store'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import SingleTrackPage from './components/SingleTrackPage/SingleTrackPage'
+import SingleArtistPage from './components/SingleArtistPage/SingleArtistPage'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   // <React.StrictMode>
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <Routes>
           <Route element={<App/>} path='/'/>
           <Route element={<SingleTrackPage/>} path="/track/:id"/>
+          <Route element={<SingleArtistPage/>} path="/artist/:id"/>
         </Routes>
       </BrowserRouter>
     </Provider>
