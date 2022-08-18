@@ -28,7 +28,7 @@ function SingleTrackPage () {
   }, [])
 
   return ( 
-    <div className="singleTrack text-[#ddd]">
+    <div className="singleTrack w-[90%] m-auto text-[#ddd]">
       <div className="track-container flex flex-col md:flex-row items-center gap-4 justify-center">
         <div className="image flex-1">
           <img className='ml-auto' src={track?.album.images[1].url}/>
@@ -47,7 +47,7 @@ function SingleTrackPage () {
         </div>
       </div>
       <div className="recommendations my-10">
-        <Title className='w-[80%] md:w-[90%] m-auto'>Músicas recomendadas baseada nesta:</Title>
+        <Title className='m-auto'>Músicas recomendadas baseada nesta:</Title>
         <SmallTracks>
           {recommendations.map((track, i) => {
             return <SmallTrack i={i} track={track}/>
