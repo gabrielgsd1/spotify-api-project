@@ -2,6 +2,7 @@ import React from 'react'
 import { Artist, SpotifyComponentProps } from '../../types/apiTypes'
 import CheckImage from '../CheckImage/CheckImage'
 import ImageNotFound from '../ImageNotFound/ImageNotFound'
+import LinkToPage from '../LinkToPage/LinkToPage'
 
 interface ArtistProps extends SpotifyComponentProps{
   artist: Artist
@@ -19,7 +20,7 @@ function ArtistComponent ({artist}: ArtistProps) {
         <CheckImage className='w-[150px] h-[150px] m-auto rounded-[50%]' source={artist}/>
       </div>
       <div className="name my-4 text-center font-semibold text-lg">
-        {artist.name}
+        <LinkToPage type='artist' id={artist.id} target="_blank">{artist.name}</LinkToPage>
       </div>
     </div>
    ) 
