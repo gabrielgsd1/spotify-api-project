@@ -31,7 +31,7 @@ function SingleArtistPage () {
 
   return ( 
     <div>
-      <div className="artist-data flex-col lg:flex-row flex text-[#ddd] gap-8">
+      <div className="artist-data flex-col md:flex-row flex text-[#ddd] gap-8">
         <div className="img flex-1 m-auto">{artist && <CheckImage className='ml-auto' source={artist}/>}</div>
         <div className="extra-info flex-1 self-center">
           <p className='text-2xl font-bold tracking-wider'>{artist?.name}</p>

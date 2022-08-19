@@ -1,9 +1,9 @@
 import React from 'react' 
-import { Artist } from '../../types/apiTypes'
+import { Artist, SpotifyResult } from '../../types/apiTypes'
 import LinkToPage from '../LinkToPage/LinkToPage'
  
 interface ArtistListProps {
-  artists: Artist[]
+  artists: Artist[] | SpotifyResult[]
   className?: string
 }
 

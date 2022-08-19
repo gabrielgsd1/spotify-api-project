@@ -125,6 +125,34 @@ export async function getArtistAlbums(id: string) {
   return data;
 }
 
+export async function getSingleAlbum(id: string) {
+  const token = await requestToken();
+  const { data }: AxiosResponse<Album> = await axios(
+    `https://api.spotify.com/v1/albums/${id}?market=BR`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return data;
+}
+
+export async function getAlbumTracks(id: string) {
+  const token = await requestToken();
+  const { data }: AxiosResponse<SpotifyItems<Track>> = await axios(
+    `https://api.spotify.com/v1/albums/${id}/tracks?limit=50`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return data;
+}
+
 export async function getTrackRecommendations(
   trackId: string,
   artistId: string

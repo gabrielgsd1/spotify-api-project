@@ -7,6 +7,7 @@ import store from './store'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import SingleTrackPage from './components/SingleTrackPage/SingleTrackPage'
 import SingleArtistPage from './components/SingleArtistPage/SingleArtistPage'
+import SingleAlbumPage from './components/SingleAlbumPage/SingleAlbumPage'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   // <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <Route element={<App/>} path='/'/>
           <Route element={<SingleTrackPage/>} path="/track/:id"/>
           <Route element={<SingleArtistPage/>} path="/artist/:id"/>
+          <Route element={<SingleAlbumPage/>} path="/album/:id"/>
         </Routes>
       </BrowserRouter>
     </Provider>

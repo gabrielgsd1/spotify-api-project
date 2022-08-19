@@ -9,7 +9,6 @@ interface CheckImageProps {
 
 
 function CheckImage ({source, className}:CheckImageProps) { 
-  console.log(source)
   function checkIfImageExists() {
     if(source.images.length > 0) return <img loading='lazy' className={className} src={source.images[1].url}/>
     else return <ImageNotFound/> 
